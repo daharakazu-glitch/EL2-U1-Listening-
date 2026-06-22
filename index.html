@@ -59,7 +59,7 @@
                <!-- LanguagesIcon -->
                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m5 8 6 6"/><path d="m4 14 6-6 8 8"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
              </span>
-             <span id="translationText">Show Translation</span>
+             <span id="translationText">日本語訳を表示</span>
           </button>
 
           <button id="toggleAnswersBtn" class="flex justify-center items-center gap-2 px-5 py-2.5 rounded-lg text-base font-bold transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200 min-w-[170px]">
@@ -232,6 +232,7 @@
     let showAllAnswers = false;
     let revealedAnswers = new Set();
     let showTranslation = false;
+    let isLinePaused = false;
     
     let playbackSpeed = 1.0;
     
@@ -455,11 +456,12 @@
 
     function updateLinePlayButtonsUI() {
       const lesson = lessons.find(l => l.id === activeTabId);
+      const isPaused = playState === 'paused' || isLinePaused;
       lesson.dialogues.forEach((_, index) => {
         const btn = document.getElementById(`line-play-btn-${index}`);
         if (btn) {
           if (currentPlayingIndex === index) {
-            if (synth.paused) {
+            if (isPaused) {
               btn.innerHTML = SVGs.playFull;
               btn.title = "再生を再開";
             } else {
@@ -600,10 +602,10 @@
       
       if (showTranslation) {
         toggleTranslationBtn.className = "flex justify-center items-center gap-2 px-5 py-2.5 rounded-lg text-base font-bold transition-colors bg-emerald-100 text-emerald-800 border border-emerald-300 min-w-[190px]";
-        text.innerText = "Hide Translation";
+        text.innerText = "日本語訳を非表示";
       } else {
         toggleTranslationBtn.className = "flex justify-center items-center gap-2 px-5 py-2.5 rounded-lg text-base font-bold transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200 min-w-[190px]";
-        text.innerText = "Show Translation";
+        text.innerText = "日本語訳を表示";
       }
     }
 
@@ -684,6 +686,7 @@
       isPlayingRef = false;
       currentPlayingIndex = -1;
       resumeIndex = 0;
+      isLinePaused = false;
 
       synth.resume(); // Chromeで一時停止したままスタックするバグの回避
       synth.cancel(); 
@@ -703,12 +706,14 @@
     // --- セリフ毎の単発再生機能 ---
     function playSingleLine(index) {
       if (currentPlayingIndex === index) {
-        if (synth.speaking && !synth.paused) {
+        if (synth.speaking && !isLinePaused) {
           synth.pause();
+          isLinePaused = true;
           updateLinePlayButtonsUI();
           return;
-        } else if (synth.paused) {
+        } else if (isLinePaused) {
           synth.resume();
+          isLinePaused = false;
           updateLinePlayButtonsUI();
           return;
         }
@@ -720,6 +725,7 @@
       const dialogue = lesson.dialogues[index];
       
       currentPlayingIndex = index;
+      isLinePaused = false;
       updateDialogueHighlight();
 
       const cleanText = getSanitizedText(dialogue.text);
@@ -737,6 +743,7 @@
         const idx = keepAliveUtterances.indexOf(utterThis);
         if (idx > -1) keepAliveUtterances.splice(idx, 1);
         currentPlayingIndex = -1;
+        isLinePaused = false;
         updateDialogueHighlight();
       };
       
@@ -747,6 +754,7 @@
         const idx = keepAliveUtterances.indexOf(utterThis);
         if (idx > -1) keepAliveUtterances.splice(idx, 1);
         currentPlayingIndex = -1;
+        isLinePaused = false;
         updateDialogueHighlight();
       };
 
@@ -760,14 +768,22 @@
       // --- Playing -> Paused ---
       if (playState === 'playing') {
         playState = 'paused';
-        isPlayingRef = false;
-        synth.resume(); // バグ回避
-        synth.cancel(); 
+        synth.pause();
         updatePlayAudioBtnUI();
+        updateDialogueHighlight();
         return;
       }
 
-      // --- Idle / Paused -> Playing ---
+      // --- Paused -> Playing ---
+      if (playState === 'paused') {
+        playState = 'playing';
+        synth.resume();
+        updatePlayAudioBtnUI();
+        updateDialogueHighlight();
+        return;
+      }
+
+      // --- Idle -> Playing (Start from beginning or resumeIndex) ---
       playState = 'playing';
       isPlayingRef = true;
       updatePlayAudioBtnUI();
@@ -825,6 +841,9 @@
           const steps = speedAdjustedPause / 50;
           for(let s=0; s<steps; s++){
             if(!isPlayingRef) break;
+            while (playState === 'paused' && isPlayingRef) {
+              await sleep(50);
+            }
             await sleep(50);
           }
         }
