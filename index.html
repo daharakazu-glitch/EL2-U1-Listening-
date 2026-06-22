@@ -452,6 +452,7 @@
 
         dialoguesContainer.appendChild(div);
       });
+      updateLinePlayButtonsUI();
     }
 
     function updateLinePlayButtonsUI() {
@@ -680,6 +681,26 @@
       }
     }
 
+    function pauseAudio() {
+      synth.pause();
+      isLinePaused = true;
+      if (playState === 'playing') {
+        playState = 'paused';
+      }
+      updatePlayAudioBtnUI();
+      updateLinePlayButtonsUI();
+    }
+
+    function resumeAudio() {
+      synth.resume();
+      isLinePaused = false;
+      if (playState === 'paused') {
+        playState = 'playing';
+      }
+      updatePlayAudioBtnUI();
+      updateLinePlayButtonsUI();
+    }
+
     // --- Audio Functions ---
     function stopAllAudio() {
       playState = 'idle';
@@ -706,15 +727,11 @@
     // --- セリフ毎の単発再生機能 ---
     function playSingleLine(index) {
       if (currentPlayingIndex === index) {
-        if (synth.speaking && !isLinePaused) {
-          synth.pause();
-          isLinePaused = true;
-          updateLinePlayButtonsUI();
+        if (!isLinePaused) {
+          pauseAudio();
           return;
-        } else if (isLinePaused) {
-          synth.resume();
-          isLinePaused = false;
-          updateLinePlayButtonsUI();
+        } else {
+          resumeAudio();
           return;
         }
       }
@@ -767,23 +784,18 @@
 
       // --- Playing -> Paused ---
       if (playState === 'playing') {
-        playState = 'paused';
-        synth.pause();
-        updatePlayAudioBtnUI();
-        updateDialogueHighlight();
+        pauseAudio();
         return;
       }
 
       // --- Paused -> Playing ---
       if (playState === 'paused') {
-        playState = 'playing';
-        synth.resume();
-        updatePlayAudioBtnUI();
-        updateDialogueHighlight();
+        resumeAudio();
         return;
       }
 
       // --- Idle -> Playing (Start from beginning or resumeIndex) ---
+      synth.cancel(); // 既存の再生をクリア
       playState = 'playing';
       isPlayingRef = true;
       updatePlayAudioBtnUI();
