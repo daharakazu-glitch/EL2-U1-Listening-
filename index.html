@@ -54,13 +54,21 @@
          </div>
 
          <!-- 各種ボタン（サイズ統一・文字拡大） -->
-         <button id="toggleAnswersBtn" class="flex justify-center items-center gap-2 px-5 py-2.5 rounded-lg text-base font-bold transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200 min-w-[170px]">
-            <span id="answersIcon">
-              <!-- EyeIcon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-            </span>
-            <span id="answersText">Show Answers</span>
+          <button id="toggleTranslationBtn" class="flex justify-center items-center gap-2 px-5 py-2.5 rounded-lg text-base font-bold transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200 min-w-[190px]">
+             <span id="translationIcon">
+               <!-- LanguagesIcon -->
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m5 8 6 6"/><path d="m4 14 6-6 8 8"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+             </span>
+             <span id="translationText">Show Translation</span>
           </button>
+
+          <button id="toggleAnswersBtn" class="flex justify-center items-center gap-2 px-5 py-2.5 rounded-lg text-base font-bold transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200 min-w-[170px]">
+             <span id="answersIcon">
+               <!-- EyeIcon -->
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+             </span>
+             <span id="answersText">Show Answers</span>
+           </button>
 
          <button id="playAudioBtn" class="flex justify-center items-center gap-2 px-5 py-2.5 rounded-lg text-base font-bold transition-colors shadow-sm bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 min-w-[150px]">
             <span id="playIconContainer">
@@ -115,22 +123,86 @@
         id: "l2",
         title: "Listening 2",
         dialogues: [
-          { speaker: "R", text: "So, here we are, this is a good spot to hear takahe. Now, the birds are difficult to see because there are a lot of trees. But, they are quite ‘chatty’ so if we listen out there’s a good chance we will hear one." },
-          { speaker: "K", text: "I’m sorry . . . chatty?" },
-          { speaker: "R", text: "Yeah, meaning they like to talk to each other. To chat." },
-          { speaker: "K", text: "Ah! Chat-ty!" },
-          { speaker: "R", text: "That’s right. Now, {let} {me} {give} {you} some information about our little friends. The takahe is one of many birds {endemic} {to} New Zealand. This means that they are only found here. The takahe is a flightless bird. They grow up to 50cm tall and the males {weigh} around 2.7kg. (takahe call) Ah! There’s one. Did you hear it?" },
-          { speaker: "K+S", text: "Oh yeah. It’s close." },
-          { speaker: "R", text: "Yes, I hope you guys get to see one. Takahe are really special. They have a bright red bill and their feathers are beautiful. Dark blue around their head, {a} {kind} {of} peacock blue around their shoulders, and their wings are an emerald green." },
-          { speaker: "K+S", text: "Oh! Nice!" },
-          { speaker: "S", text: "Is it true they are endangered?" },
-          { speaker: "R", text: "Yes, that’s right. Actually, many people thought they were extinct. Then, in 1948, they were rediscovered in a valley in Fiordland. That’s in the South Island. These days, that’s the only area where the takahe live in the wild, in a place called the Murchison Mountains." },
-          { speaker: "K", text: "You said people thought they were extinct. Do you know why they {disappeared}?" },
-          { speaker: "R", text: "Well, it’s difficult to say for sure, but the biggest reason we think is {because} {of} humans. When more people started coming to New Zealand from Europe, they started to move into the takahe’s habitats. Also, the settlers brought new animals into the country, like cats and dogs. As takahe can’t fly, they don’t stand much chance against a cat!" },
-          { speaker: "S", text: "Right! And is there any kind of . . . {conservation} program?" },
-          { speaker: "R", text: "Yes! Different groups, like Zealandia, now work together to breed takahe and release them into the wild. After 65 years of work, there are now over 350 birds in the takahe population." },
-          { speaker: "K+S", text: "That’s great." },
-          { speaker: "R", text: "So, unfortunately, it looks like they are not going to {make} {an} {appearance}. Let’s see who we can find in the shrubland instead, shall we?" }
+          {
+            speaker: "R",
+            text: "So, here we are, this is a good spot to hear takahe. Now, the birds are difficult to see because there are a lot of trees. But, they are quite ‘chatty’ so if we listen out there’s a good chance we will hear one.",
+            translation: "さあ、着きましたよ。ここはタカヘの声を聞くのに良い場所です。さて、木がたくさんあるので鳥たちを見つけるのは難しいですが、彼らはとても『おしゃべり』なので、注意して聞いていれば声が聞こえる可能性は十分にあります。"
+          },
+          {
+            speaker: "K",
+            text: "I’m sorry . . . chatty?",
+            translation: "すみません…おしゃべりですか？"
+          },
+          {
+            speaker: "R",
+            text: "Yeah, meaning they like to talk to each other. To chat.",
+            translation: "ええ、お互いに話をするのが好きだという意味です。チャット（おしゃべり）するということですね。"
+          },
+          {
+            speaker: "K",
+            text: "Ah! Chat-ty!",
+            translation: "ああ！チャッティ（おしゃべり）！"
+          },
+          {
+            speaker: "R",
+            text: "That’s right. Now, {let} {me} {give} {you} some information about our little friends. The takahe is one of many birds {endemic} {to} New Zealand. This means that they are only found here. The takahe is a flightless bird. They grow up to 50cm tall and the males {weigh} around 2.7kg. (takahe call) Ah! There’s one. Did you hear it?",
+            translation: "その通りです。さて、私たちの小さなお友達についていくつかの情報を教えましょう。タカヘはニュージーランド固有の多くの鳥のうちの1つです。これは、ここだけで見られるという意味です。タカヘは飛べない鳥です。体長は50センチメートルまで成長し、オスは体重が約2.7キログラムあります。（タカヘの鳴き声）あ！1羽いましたよ。聞こえましたか？"
+          },
+          {
+            speaker: "K+S",
+            text: "Oh yeah. It’s close.",
+            translation: "ああ、本当だ。近いですね。"
+          },
+          {
+            speaker: "R",
+            text: "Yes, I hope you guys get to see one. Takahe are really special. They have a bright red bill and their feathers are beautiful. Dark blue around their head, {a} {kind} {of} peacock blue around their shoulders, and their wings are an emerald green.",
+            translation: "ええ、皆さんが見られるといいのですが。タカヘは本当に特別です。鮮やかな赤いくちばしを持っていて、羽が美しいのです。頭の周りは濃い青、肩の周りは一種のピーコックブルー（クジャクの青）、そして翼はエメラルドグリーンです。"
+          },
+          {
+            speaker: "K+S",
+            text: "Oh! Nice!",
+            translation: "おー！素敵！"
+          },
+          {
+            speaker: "S",
+            text: "Is it true they are endangered?",
+            translation: "絶滅危惧種だというのは本当ですか？"
+          },
+          {
+            speaker: "R",
+            text: "Yes, that’s right. Actually, many people thought they were extinct. Then, in 1948, they were rediscovered in a valley in Fiordland. That’s in the South Island. These days, that’s the only area where the takahe live in the wild, in a place called the Murchison Mountains.",
+            translation: "はい、その通りです。実は、多くの人が彼らは絶滅したと思っていました。その後、1948年にフィヨルドランドの谷で再発見されました。それは南島にあります。最近では、そこがタカヘが野生で生きている唯一の地域で、マーチソン山脈と呼ばれる場所です。"
+          },
+          {
+            speaker: "K",
+            text: "You said people thought they were extinct. Do you know why they {disappeared}?",
+            translation: "人々が絶滅したと思っていたとおっしゃいましたね。なぜ彼らが姿を消したのかご存じですか？"
+          },
+          {
+            speaker: "R",
+            text: "Well, it’s difficult to say for sure, but the biggest reason we think is {because} {of} humans. When more people started coming to New Zealand from Europe, they started to move into the takahe’s habitats. Also, the settlers brought new animals into the country, like cats and dogs. As takahe can’t fly, they don’t stand much chance against a cat!",
+            translation: "そうですね、確実なことは言いにくいですが、私たちが考える最大の理由は人間のせいです。ヨーロッパからより多くの人々がニュージーランドに来るようになり、彼らはタカヘの生息地に住み始めました。また、入植者たちは国に猫や犬などの新しい動物を持ち込みました。タカヘは飛べないので、猫に対して勝ち目はありません！"
+          },
+          {
+            speaker: "S",
+            text: "Right! And is there any kind of . . . {conservation} program?",
+            translation: "なるほど！それで、何か…保護プログラムのようなものはあるのですか？"
+          },
+          {
+            speaker: "R",
+            text: "Yes! Different groups, like Zealandia, now work together to breed takahe and release them into the wild. After 65 years of work, there are now over 350 birds in the takahe population.",
+            translation: "はい！ジーランディアのような様々なグループが、今では協力してタカヘを繁殖させ、野生に放流しています。65年間の取り組みの後、現在ではタカヘの個体数は350羽を超えています。"
+          },
+          {
+            speaker: "K+S",
+            text: "That’s great.",
+            translation: "それは素晴らしいですね。"
+          },
+          {
+            speaker: "R",
+            text: "So, unfortunately, it looks like they are not going to {make} {an} {appearance}. Let’s see who we can find in the shrubland instead, shall we?",
+            translation: "ということで、残念ながら彼らは姿を現しそうにありません。代わりに低木地で誰を見つけられるか見てみましょうか？"
+          }
         ]
       }
     ];
@@ -159,6 +231,7 @@
     let activeTabId = lessons[0].id;
     let showAllAnswers = false;
     let revealedAnswers = new Set();
+    let showTranslation = false;
     
     let playbackSpeed = 1.0;
     
@@ -275,6 +348,7 @@
     const dialoguesContainer = document.getElementById('dialoguesContainer');
     const speedSelect = document.getElementById('speedSelect');
     
+    const toggleTranslationBtn = document.getElementById('toggleTranslationBtn');
     const toggleAnswersBtn = document.getElementById('toggleAnswersBtn');
     const playAudioBtn = document.getElementById('playAudioBtn');
     const recordBtn = document.getElementById('recordBtn');
@@ -285,6 +359,7 @@
       renderTabs();
       loadLesson(activeTabId);
       setupEventListeners();
+      updateToggleTranslationBtnUI();
     }
 
     // --- Rendering ---
@@ -356,6 +431,23 @@
         textNodes.forEach(node => p.appendChild(node));
         
         div.appendChild(p);
+
+        if (showTranslation && dialogue.translation) {
+          const transDiv = document.createElement('div');
+          transDiv.className = "mt-4 pl-14 flex items-start gap-2.5 text-lg md:text-xl text-gray-600 font-sans font-normal leading-relaxed border-t border-gray-100 pt-3";
+          
+          const transBadge = document.createElement('span');
+          transBadge.className = "inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-bold bg-indigo-50 text-indigo-600 border border-indigo-200 mt-1 select-none shrink-0";
+          transBadge.innerText = "訳";
+          
+          const transText = document.createElement('span');
+          transText.innerText = dialogue.translation;
+          
+          transDiv.appendChild(transBadge);
+          transDiv.appendChild(transText);
+          div.appendChild(transDiv);
+        }
+
         dialoguesContainer.appendChild(div);
       });
     }
@@ -445,6 +537,12 @@
         if (recordAudio) recordAudio.playbackRate = playbackSpeed;
       });
 
+      toggleTranslationBtn.addEventListener('click', () => {
+        showTranslation = !showTranslation;
+        updateToggleTranslationBtnUI();
+        renderDialogues();
+      });
+
       toggleAnswersBtn.addEventListener('click', () => {
         showAllAnswers = !showAllAnswers;
         if (!showAllAnswers) revealedAnswers.clear();
@@ -471,6 +569,18 @@
       if (textSpan && underline) {
         textSpan.className = `inline-block min-w-[5rem] px-2 text-center border-b-[3px] transition-all duration-200 ${isRevealed ? 'opacity-100 text-red-600 border-transparent' : 'opacity-0 text-transparent border-transparent'}`;
         underline.className = `absolute bottom-0 left-0 right-0 h-[4px] group-hover:bg-indigo-500 transition-colors ${isRevealed ? 'hidden' : 'bg-gray-900'}`;
+      }
+    }
+
+    function updateToggleTranslationBtnUI() {
+      const text = document.getElementById('translationText');
+      
+      if (showTranslation) {
+        toggleTranslationBtn.className = "flex justify-center items-center gap-2 px-5 py-2.5 rounded-lg text-base font-bold transition-colors bg-emerald-100 text-emerald-800 border border-emerald-300 min-w-[190px]";
+        text.innerText = "Hide Translation";
+      } else {
+        toggleTranslationBtn.className = "flex justify-center items-center gap-2 px-5 py-2.5 rounded-lg text-base font-bold transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200 min-w-[190px]";
+        text.innerText = "Show Translation";
       }
     }
 
